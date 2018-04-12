@@ -6,9 +6,8 @@ import './assets/styles/global.styl'
 // import './assets/styles/test-stylus.styl'
 // import './assets/images/bg.jpeg'
 
-
 const root = document.createElement('div')
-document.body.appendChild(root)
+document.body.appendChild(root )
 new Vue({
   render: (h) => h(App)
 }).$mount(root)

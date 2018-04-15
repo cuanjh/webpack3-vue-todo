@@ -1,24 +1,25 @@
 <template>
   <section class="real-app">
-    <input 
+    <input
       type="text"
       class="add-input"
       autofocus="autofocus"
       placeholder="接下去要做什么？"
       @keyup.enter="addTodo"
     >
-    <item 
-      :todo="todo" 
+    <item
+      :todo="todo"
       v-for="todo in filteredTodos"
       :key="todo.id"
       @del="deleteTodo"
     />
-    <tabs 
-      :filter="filter" 
-      :todos="todos" 
+    <tabs
+      :filter="filter"
+      :todos="todos"
       @toggle="toggleFilter"
       @clearAllCompleted = "clearAllCompleted"
     />
+    <!-- <router-view /> -->
   </section>
 </template>
 
@@ -27,6 +28,26 @@ import Item from './item.vue'
 import Tabs from './tabs.vue'
 let id = 0
 export default {
+  beforeRouteEnter (to, from, next) {
+    console.log('todo route before enter')
+    next(vm => {
+      console.log('after enter vm.id is ', vm.id)
+    })
+  },
+  beforeRouteUpdate (to, from, next) {
+    console.log('todo before update enter')
+    next()
+  },
+  beforeRouteLeave (to, from, next) {
+    console.log('todo before leave enter')
+    if (global.confirm('Are you sure?')) {
+      next()
+    }
+  },
+  props: ['id'],
+  mounted () {
+    console.log(this.id)
+  },
   data () {
     return {
       todos: [],

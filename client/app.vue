@@ -30,6 +30,9 @@ import
 import Header from './views/layout/header.vue'
 import Footer from './views/layout/footer.jsx'
 export default {
+  metaInfo: {
+    title: 'cc\'s todo'
+  },
   components: {
     Header,
     Footer

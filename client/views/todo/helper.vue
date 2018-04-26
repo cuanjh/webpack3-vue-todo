@@ -1,7 +1,7 @@
 <template>
   <div class="helper">
     <span class="left">{{unFinishedTodoLength}} items left</span>
-    <span class="tabs">
+    <!-- <span class="tabs">
       <span
         v-for="state in states"
         :key="state"
@@ -10,7 +10,7 @@
       >
         {{state}}
       </span>
-    </span>
+    </span> -->
     <span class="clear" @click="clearAllCompleted">Clear Completed</span>
   </div>
 </template>

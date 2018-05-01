@@ -14,7 +14,7 @@
     <transition name="fade">
       <router-view />
     </transition>
-    <button @click="notify">click me</button>
+    <!-- <button @click="notify">click me</button> -->
     <!-- <notification content="test notify" /> -->
     <Footer></Footer>
     <!-- <router-view name="a" /> -->
@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import
-{
-  mapState,
-  mapGetters,
-  mapMutations,
-  mapActions
-} from 'vuex'
+// import
+// {
+//   mapState,
+//   mapGetters,
+//   mapMutations,
+//   mapActions
+// } from 'vuex'
 import Header from './views/layout/header.vue'
 import Footer from './views/layout/footer.jsx'
 export default {
@@ -69,8 +69,8 @@ export default {
     // }, 1000)
   },
   methods: {
-    ...mapMutations(['updateCount']),
-    ...mapActions(['updateCountAsync']),
+    // ...mapMutations(['updateCount']),
+    // ...mapActions(['updateCountAsync']),
     notify () {
       this.$notify({
         content: 'test $notify',
@@ -79,20 +79,20 @@ export default {
     }
   },
   computed: {
-    textA () {
-      return this.$store.state.a.text
-    },
+    // textA () {
+    //   return this.$store.state.a.text
+    // },
     // ...mapState(['count']),
     // ...mapState({
     //   counter: 'count'
     // }),
-    ...mapState({
-      counter: (state) => state.count
-    }),
+    // ...mapState({
+    //   counter: (state) => state.count
+    // }),
     // count () {
     //   return this.$store.state.count
     // },
-    ...mapGetters(['fullName'])
+    // ...mapGetters(['fullName'])
     // fullName () {
     //   return this.$store.getters.fullName
     // }

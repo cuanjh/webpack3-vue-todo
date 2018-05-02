@@ -1,5 +1,7 @@
 export default {
   count: 0,
   firstName: 'jack',
-  lastName: 'chui'
+  lastName: 'chui',
+  todos: [],
+  user: null
 }

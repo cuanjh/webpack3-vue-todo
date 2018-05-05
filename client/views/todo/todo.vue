@@ -60,14 +60,28 @@ export default {
   },
   beforeRouteLeave (to, from, next) {
     console.log('todo before leave enter')
-    if (global.confirm('Are you sure?')) {
-      next()
-    }
+    // if (global.confirm('Are you sure?')) {
+    next()
+    // }
   },
   props: ['id'],
   mounted () {
     // console.log(this.id)
-    this.fetchTodos()
+    if (this.todos && this.todos.length < 1) {
+      this.fetchTodos()
+    }
+  },
+  asyncData ({ store, router }) {
+    // return new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve(123)
+    //   }, 1000)
+    // })
+    if (store.state.user) {
+      return store.dispatch('fetchTodos')
+    }
+    router.replace('/login')
+    return Promise.resolve()
   },
   data () {
     return {
@@ -130,7 +144,8 @@ export default {
       })
     },
     clearAllCompleted () {
-      this.todos = this.todos.filter(todo => !todo.completed)
+      // this.todos = this.todos.filter(todo => !todo.completed)
+      this.deleteAllCompleted()
     },
     handleChangeTab (value) {
       this.filter = value

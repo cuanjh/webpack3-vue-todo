@@ -2,16 +2,19 @@ const Router = require('koa-router')
 const axios = require('axios')
 const path = require('path')
 const fs = require('fs')
-const MemoryFS = require('memory-fs')
+// const MemoryFS = require('memory-fs')
 const webpack = require('webpack')
 const VueServerRenderer = require('vue-server-renderer')
 
-const serverRender = require('./server-render')
+const serverRender = require('./server-render-no-bundle')
 const serverConfig = require('../../build/webpack.config.server')
 
+// const NativeModule = require('module')
+// const vm = require('vm')
+
 const serverCompiler = webpack(serverConfig)
-const mfs = new MemoryFS()
-serverCompiler.outputFileSystem = mfs
+// const mfs = new MemoryFS()
+// serverCompiler.outputFileSystem = mfs
 
 let bundle
 serverCompiler.watch({}, (err, stats) => {
@@ -22,9 +25,25 @@ serverCompiler.watch({}, (err, stats) => {
 
   const bundlePath = path.join(
     serverConfig.output.path,
-    'vue-ssr-server-bundle.json'
+    'server-entry.js'
   )
-  bundle = JSON.parse(mfs.readFileSync(bundlePath, 'utf-8'))
+  delete require.cache[bundlePath]
+  bundle = require('../../server-build/server-entry.js').default
+  // try {
+  //   const m = { exports: {} }
+  //   const bundleStr = mfs.readFileSync(bundlePath, 'utf-8')
+  //   const wrapper = NativeModule.wrap(bundleStr)
+  //   const script = new vm.Script(wrapper, {
+  //     filename: 'server-entry.js',
+  //     displayError: true
+  //   })
+  //   const result = script.runInThisContext()
+  //   result.call(m.exports, m.exports, require, m)
+  //   bundle = m.exports.default
+  // } catch (err) {
+  //   console.error('compile js error:', err)
+  // }
+
   console.log('new bundle generated')
 })
 
@@ -45,12 +64,12 @@ const handleSSR = async (ctx) => {
   )
 
   const renderer = VueServerRenderer
-    .createBundleRenderer(bundle, {
+    .createRenderer({
       inject: false,
       clientManifest
     })
 
-  await serverRender(ctx, renderer, template)
+  await serverRender(ctx, renderer, template, bundle)
 }
 
 const router = new Router()

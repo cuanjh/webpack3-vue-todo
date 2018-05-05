@@ -1,6 +1,6 @@
 const ejs = require('ejs')
 
-module.exports = async (ctx, renderer, template) => {
+module.exports = async (ctx, renderer, template, bundle) => {
   ctx.headers['Content-Type'] = 'text/html'
 
   const context = {
@@ -9,11 +9,14 @@ module.exports = async (ctx, renderer, template) => {
   }
 
   try {
-    const appString = await renderer.renderToString(context)
+    // const appString = await renderer.renderToString(context)
+    const app = await bundle(context)
 
     if (context.router.currentRoute.fullPath !== ctx.path) {
       return ctx.redirect(context.router.currentRoute.fullPath)
     }
+
+    const appString = await renderer.renderToString(app, context)
 
     const { title } = context.meta.inject()
 

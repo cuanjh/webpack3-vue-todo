@@ -1,6 +1,9 @@
 <template>
   <div id="app">
     <div id="cover"></div>
+    <div id="loading" v-show="loading">
+      <loading></loading>
+    </div>
     <Header></Header>
     <!-- <p>{{ counter }}</p>
     <p>{{ fullName }}</p>
@@ -11,7 +14,7 @@
     <!-- <router-link to="/app/123">app123</router-link>
     <router-link to="/app/456">app456</router-link>
     <router-link to="/login">login</router-link> -->
-    <transition name="fade">
+    <transition name="fade" mode="out-in">
       <router-view />
     </transition>
     <!-- <button @click="notify">click me</button> -->
@@ -22,22 +25,25 @@
 </template>
 
 <script>
-// import
-// {
-//   mapState,
-//   mapGetters,
-//   mapMutations,
-//   mapActions
-// } from 'vuex'
+import
+{
+  mapState
+  // mapGetters,
+  // mapMutations,
+  // mapActions
+} from 'vuex'
 import Header from './views/layout/header.vue'
 import Footer from './views/layout/footer.jsx'
+import Loading from './components/loading/loading.vue'
+
 export default {
   metaInfo: {
     title: 'cc\'s todo'
   },
   components: {
     Header,
-    Footer
+    Footer,
+    Loading
   },
   mounted () {
 
@@ -79,6 +85,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['loading'])
     // textA () {
     //   return this.$store.state.a.text
     // },
@@ -117,6 +124,18 @@ export default {
   background-color #999
   opacity .9
   z-index -1
+}
+#loading{
+  position fixed
+  top 0
+  right 0
+  bottom 0
+  left 0
+  background-color rgba(255,255,255,.3)
+  z-index 99
+  display flex
+  align-items center
+  justify-content center
 }
 </style>
 

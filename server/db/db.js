@@ -31,6 +31,7 @@ module.exports = (appId, appKey) => {
   }
   return {
     async getAllTodos () {
+      console.log('db.getAllTodos')
       return handleRequest(await request.get(`/${className}`, {
         headers: getHeaders()
       }))

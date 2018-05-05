@@ -5,6 +5,7 @@ export default {
   },
   fillTodos (state, todos) {
     state.todos = todos
+    console.log(todos)
   },
   addTodo (state, todo) {
     state.todos.unshift(todo)
@@ -27,5 +28,11 @@ export default {
   },
   doLogin (state, userInfo) {
     state.user = userInfo
+  },
+  startLoading (state) {
+    state.loading = true
+  },
+  endLoading (state) {
+    state.loading = false
   }
 }

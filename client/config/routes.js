@@ -1,5 +1,5 @@
-// import Todo from '../views/todo/todo.vue'
-// import Login from '../views/login/login.vue'
+import Todo from '../views/todo/todo.vue'
+import Login from '../views/login/login.vue'
 
 export default [
   {
@@ -23,8 +23,8 @@ export default [
       console.log('app route before enter')
       next()
     },
-    // component: Todo
-    component: () => import('../views/todo/todo.vue')
+    component: Todo
+    // component: () => import('../views/todo/todo.vue')
     // components: {
     //   default: Todo,
     //   a: Login
@@ -38,8 +38,8 @@ export default [
   },
   {
     path: '/login',
-    // component: Login
-    component: () => import('../views/login/login.vue')
+    component: Login
+    // component: () => import('../views/login/login.vue')
     // components: {
     //   default: Login,
     //   a: Todo

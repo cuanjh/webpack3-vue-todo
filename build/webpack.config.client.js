@@ -113,7 +113,8 @@ if (isDev) {
       }),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'runtime'
-      })
+      }),
+      new webpack.NamedChunksPlugin()
     ])
   })
 }

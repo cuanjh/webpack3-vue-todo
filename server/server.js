@@ -50,19 +50,20 @@ app.use(async (ctx, next) => {
   }
 })
 
+app.use(koaBody())
+app.use(userRouter.routes()).use(userRouter.allowedMethods())
 app.use(staticRouter.routes()).use(staticRouter.allowedMethods())
+app.use(apiRouter.routes()).use(apiRouter.allowedMethods())
 
 let pageRouter
 if (isDev) {
-  // pageRouter = require('./routers/dev-ssr')
-  pageRouter = require('./routers/dev-ssr-no-bundle')
+  pageRouter = require('./routers/dev-ssr')
+  // pageRouter = require('./routers/dev-ssr-no-bundle')
 } else {
-  pageRouter = require('./routers/ssr')
+  // pageRouter = require('./routers/ssr')
+  pageRouter = require('./routers/ssr-no-bundle')
 }
 
-app.use(koaBody())
-app.use(apiRouter.routes()).use(apiRouter.allowedMethods())
-app.use(userRouter.routes()).use(userRouter.allowedMethods())
 app.use(pageRouter.routes()).use(pageRouter.allowedMethods())
 
 const HOST = process.env.HOST || '0.0.0.0'

@@ -9,7 +9,10 @@ let config
 const isDev = process.env.NODE_ENV === 'development'
 
 const plugins = [
-  new ExtractPlugin('styles.[contentHash:8].css'),
+  new ExtractPlugin({
+    filename: 'styles.[chunkhash:8].css',
+    allChunks: true
+  }),
   new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
     'process.env.VUE_ENV': '"server"'

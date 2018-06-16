@@ -122,7 +122,7 @@ if(isDev){
     })
   })
   config.plugins.push(
-    new ExtractPlugin('styles.[contentHash:8].css'),
+    new ExtractPlugin('styles.[chunkhash:8].css'),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
     }),
